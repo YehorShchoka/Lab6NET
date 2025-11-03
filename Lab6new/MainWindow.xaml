@@ -1,0 +1,76 @@
+﻿<Window x:Class="Lab6new.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Каталог співробітників" Height="600" Width="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Додати нового співробітника" Margin="0,0,0,10">
+            <StackPanel Margin="5">
+                <TextBlock Text="ПІБ:"/>
+                <TextBox x:Name="FullNameTextBox" Margin="0,2,0,5"/>
+
+                <TextBlock Text="Посада:"/>
+                <TextBox x:Name="PositionTextBox" Margin="0,2,0,5"/>
+
+                <TextBlock Text="Зарплата:"/>
+                <TextBox x:Name="SalaryTextBox" Margin="0,2,0,5"/>
+
+                <TextBlock Text="Стаж (роки):"/>
+                <TextBox x:Name="WorkExperienceTextBox" Margin="0,2,0,10"/>
+
+                <Button x:Name="AddButton" Content="Додати співробітника" Click="AddButton_Click"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Дії" Margin="0,0,0,10">
+            <StackPanel Margin="5">
+                <Button x:Name="SortByWorkExperienceButton" Content="Сортувати за стажем" 
+                        Click="SortByWorkExperienceButton_Click" Margin="0,2"/>
+
+                <Button x:Name="SortBySalaryButton" Content="Сортувати за зарплатою" 
+                        Click="SortBySalaryButton_Click" Margin="0,2"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBox x:Name="FilterSalaryTextBox" Width="80" 
+                             Text="20000" Margin="0,0,5,0"/>
+                    <Button x:Name="FilterButton" Content="Фільтрувати (зарплата &lt;)" 
+                            Click="FilterButton_Click" Margin="0,0,5,0"/>
+                    <Button x:Name="ResetFilterButton" Content="Скинути фільтр" 
+                            Click="ResetFilterButton_Click"/>
+                </StackPanel>
+
+                <Button x:Name="DeleteButton" Content="Видалити обраного" 
+                        Click="DeleteButton_Click" Margin="0,2"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Grid.Column="0" Header="Робота з файлами">
+            <StackPanel Margin="5">
+                <Button x:Name="SaveButton" Content="Зберегти каталог" 
+                        Click="SaveButton_Click" Margin="0,2"/>
+                <Button x:Name="LoadButton" Content="Завантажити каталог" 
+                        Click="LoadButton_Click" Margin="0,2"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Header="Співробітники">
+            <DataGrid x:Name="EmployeesDataGrid" AutoGenerateColumns="True" 
+                      IsReadOnly="True" SelectionMode="Single"/>
+        </GroupBox>
+
+        <StatusBar Grid.Row="3" Grid.ColumnSpan="3">
+            <TextBlock x:Name="StatusText" Text="Готово"/>
+        </StatusBar>
+    </Grid>
+</Window>
