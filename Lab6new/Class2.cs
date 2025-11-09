@@ -8,7 +8,7 @@
             if (x == null) return -1;
             if (y == null) return 1;
 
-            return x.Salary.CompareTo(y.Salary);
+            return y.Salary.CompareTo(x.Salary);
         }
     }
 }

@@ -34,27 +34,82 @@ namespace Lab6new
 
         public void SortByWorkExperience()
         {
-            var sortedEmployees = new List<Employee>(_allEmployees);
-            sortedEmployees.Sort(new EmployeeWorkExperienceComparer());
+            var sortedEmployees = _allEmployees
+                .OrderBy(e => e.WorkExperience)
+                .ToList();
             UpdateVisibleCollection(sortedEmployees);
         }
 
         public void SortBySalary()
         {
-            var sortedEmployees = new List<Employee>(_allEmployees);
-            sortedEmployees.Sort(new EmployeeSalaryComparer());
+            var sortedEmployees = _allEmployees
+                .OrderBy(e => e.Salary)
+                .ToList();
             UpdateVisibleCollection(sortedEmployees);
         }
 
         public void FilterBySalary(decimal maxSalary)
         {
-            var filtered = _allEmployees.Where(e => e.Salary < maxSalary).ToList();
+            var filtered = _allEmployees
+                .Where(e => e.Salary < maxSalary)
+                .ToList();
             UpdateVisibleCollection(filtered);
         }
 
         public void ResetFilter()
         {
             UpdateVisibleCollection(_allEmployees);
+        }
+
+        public List<Employee> SearchEmployees(string searchTerm)
+        {
+            return _allEmployees
+                .Where(e => e.FullName.Contains(searchTerm, System.StringComparison.OrdinalIgnoreCase) ||
+                           e.Position.Contains(searchTerm, System.StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+
+        public List<string> GetUniquePositions()
+        {
+            return _allEmployees
+                .Select(e => e.Position)
+                .Distinct()
+                .OrderBy(p => p)
+                .ToList();
+        }
+
+        public List<Employee> GetTop3BySalary()
+        {
+            return _allEmployees
+                .OrderByDescending(e => e.Salary)
+                .Take(3)
+                .ToList();
+        }
+
+        public decimal CalculateAverageSalary()
+        {
+            return _allEmployees.Any()
+                ? _allEmployees.Average(e => e.Salary)
+                : 0;
+        }
+
+        public Dictionary<string, List<Employee>> GroupEmployeesByPosition()
+        {
+            if (!_allEmployees.Any())
+                return new Dictionary<string, List<Employee>>();
+
+            return _allEmployees
+                .GroupBy(e => e.Position)
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.OrderBy(e => e.FullName).ToList());
+        }
+
+        public List<Employee> GetEmployeesWithExperienceMoreThan(int years)
+        {
+            return _allEmployees
+                .Where(e => e.WorkExperience > years)
+                .OrderByDescending(e => e.WorkExperience)
+                .ToList();
         }
 
         private void UpdateVisibleCollection(List<Employee> newList)

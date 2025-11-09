@@ -27,8 +27,8 @@ namespace TestProject2
         {
             var employees = new List<Employee>
         {
-            new Employee("Іванов І.І.", "Інженер", 25000, 5),
-            new Employee("Петров П.П.", "Менеджер", 30000, 3)
+            new Employee("Чувак Ч.Ч.", "Касир", 25000, 5),
+            new Employee("Альберт П.П.", "Менеджер", 30000, 3)
         };
             var fileSaver = new JsonFileWriter();
 
@@ -40,7 +40,7 @@ namespace TestProject2
         [TestMethod]
         public async Task LoadAsync_WithValidFile_ReadsDataFromFile()
         {
-            var jsonContent = @"[{""FullName"":""Іванов І.І."",""Position"":""Інженер"",""Salary"":25000,""WorkExperience"":5}]";
+            var jsonContent = @"[{""FullName"":""Чувак Ч.Ч."",""Position"":""Касир"",""Salary"":25000,""WorkExperience"":5}]";
             await System.IO.File.WriteAllTextAsync(_testFilePath, jsonContent);
             var fileReader = new JsonFileReader();
 
@@ -48,8 +48,8 @@ namespace TestProject2
 
             Assert.IsNotNull(loadedEmployees, "Завантажені дані не повинні бути null");
             Assert.AreEqual(1, loadedEmployees.Count, "Має завантажитись один співробітник");
-            Assert.AreEqual("Іванов І.І.", loadedEmployees[0].FullName);
-            Assert.AreEqual("Інженер", loadedEmployees[0].Position);
+            Assert.AreEqual("Чувак Ч.Ч.", loadedEmployees[0].FullName);
+            Assert.AreEqual("Касир", loadedEmployees[0].Position);
         }
 
         [TestMethod]

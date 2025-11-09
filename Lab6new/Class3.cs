@@ -8,7 +8,7 @@
             if (x == null) return -1;
             if (y == null) return 1;
 
-            return x.WorkExperience.CompareTo(y.WorkExperience);
+            return y.WorkExperience.CompareTo(x.WorkExperience);
         }
     }
 }
